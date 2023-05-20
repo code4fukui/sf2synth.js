@@ -1,13 +1,10 @@
-goog.provide('SoundFont.WebMidiLink');
+import { Synthesizer } from "./sound_font_synth.js";
 
-goog.require('SoundFont.Synthesizer');
-
-goog.scope(function() {
 
 /**
  * @constructor
  */
-SoundFont.WebMidiLink = function() {
+export const WebMidiLink = function() {
   /** @type {Array.<number>} */
   this.RpnMsb = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
   /** @type {Array.<number>} */
@@ -26,7 +23,7 @@ SoundFont.WebMidiLink = function() {
   }.bind(this), false);
 };
 
-SoundFont.WebMidiLink.prototype.setup = function(url) {
+WebMidiLink.prototype.setup = function(url) {
   if (!this.ready) {
     window.addEventListener('DOMContentLoaded', function onload() {
       window.removeEventListener('DOMContentLoaded', onload, false);
@@ -37,7 +34,7 @@ SoundFont.WebMidiLink.prototype.setup = function(url) {
   }
 };
 
-SoundFont.WebMidiLink.prototype.load = function(url) {
+WebMidiLink.prototype.load = function(url) {
   /** @type {XMLHttpRequest} */
   var xhr = new XMLHttpRequest();
 
@@ -60,7 +57,7 @@ SoundFont.WebMidiLink.prototype.load = function(url) {
 /**
  * @param {ArrayBuffer} response
  */
-SoundFont.WebMidiLink.prototype.onload = function(response) {
+WebMidiLink.prototype.onload = function(response) {
   /** @type {Uint8Array} */
   var input = new Uint8Array(response);
 
@@ -70,12 +67,12 @@ SoundFont.WebMidiLink.prototype.onload = function(response) {
 /**
  * @param {Uint8Array} input
  */
-SoundFont.WebMidiLink.prototype.loadSoundFont = function(input) {
+WebMidiLink.prototype.loadSoundFont = function(input) {
   /** @type {SoundFont.Synthesizer} */
   var synth;
 
   if (!this.synth) {
-    synth = this.synth = new SoundFont.Synthesizer(input);
+    synth = this.synth = new Synthesizer(input);
     document.body.appendChild(synth.drawSynth());
     synth.init();
     synth.start();
@@ -96,7 +93,7 @@ SoundFont.WebMidiLink.prototype.loadSoundFont = function(input) {
 /**
  * @param {Event} ev
  */
-SoundFont.WebMidiLink.prototype.onmessage = function(ev) {
+WebMidiLink.prototype.onmessage = function(ev) {
   var msg = ev.data.split(',');
   var type = msg.shift();
   var command;
@@ -124,26 +121,26 @@ SoundFont.WebMidiLink.prototype.onmessage = function(ev) {
           // TODO: NOP
           break;
         default:
-          goog.global.console.error('unknown link message:', command);
+          console.error('unknown link message:', command);
           break;
       }
       break;
     default:
-      goog.global.console.error('unknown message type');
+      console.error('unknown message type');
   }
 };
 
 /**
  * @param {function(ArrayBuffer)} callback
  */
-SoundFont.WebMidiLink.prototype.setLoadCallback = function(callback) {
+WebMidiLink.prototype.setLoadCallback = function(callback) {
   this.loadCallback = callback;
 };
 
 /**
  * @param {Array.<number>} message
  */
-SoundFont.WebMidiLink.prototype.processMidiMessage = function(message) {
+WebMidiLink.prototype.processMidiMessage = function(message) {
   /** @type {number} */
   var channel = message[0] & 0x0f;
   /** @type {SoundFont.Synthesizer} */
@@ -230,5 +227,3 @@ SoundFont.WebMidiLink.prototype.processMidiMessage = function(message) {
       break;
   }
 };
-
-});

@@ -1,8 +1,4 @@
-goog.provide('Riff.Parser');
-
-goog.require('Typedef');
-
-goog.scope(function() {
+export const Riff = {};
 
 /**
  * @param {ByteArray} input input buffer.
@@ -105,5 +101,3 @@ Riff.Parser.prototype.getChunk = function(index) {
 Riff.Parser.prototype.getNumberOfChunks = function() {
   return this.chunkList.length;
 }
-
-});

@@ -3,6 +3,10 @@ sf2synth.js
 
 sf2synth.js は [WebMidiLink](http://www.g200kg.com/en/docs/webmidilink/) 対応の SoundFont シンセサイザです。
 
+## デモ
+
+- [シンプル シンセサイザ](https://code4fukui.github.io/sf2synth.js/)
+- [テスト用キーボード表示](https://code4fukui.github.io/sf2synth.js/wml.html)
 
 ## 使い方
 

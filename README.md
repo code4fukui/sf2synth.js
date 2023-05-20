@@ -7,12 +7,17 @@ sf2synth.js は [WebMidiLink](http://www.g200kg.com/en/docs/webmidilink/) 対応
 ## 使い方
 
 ```js
-var url = './soundfont/A320U.sf2';
-var wml = new SoundFont.WebMidiLink();
-wml.setLoadCallback(function(arraybuffer) {
-    // ロード完了時の処理
-});
-wml.setup(url);
+import { SoundFont } from "https://code4fukui.github.io/sf2synth.js/SoundFont.js";
+
+const wml = new SoundFont.WebMidiLink();
+
+btn.onclick = () => {
+  const url = "https://imaya.github.io/demo/sf2.js/soundfont/A320U.sf2";
+  wml.setLoadCallback(function(arraybuffer) {
+    // loaded
+  });
+  wml.setup(url);
+};
 ```
 
 

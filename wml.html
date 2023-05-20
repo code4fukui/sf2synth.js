@@ -1,0 +1,18 @@
+<!DOCTYPE html><html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width"><link rel="icon" href="data:">
+
+<button id=btn>init</button>
+<link rel="stylesheet" type="text/css" href="synth.css">
+<script type="module">
+//import { WebMidiLink } from "./src/wml.js";
+import { SoundFont } from "./SoundFont.js";
+
+const wml = new SoundFont.WebMidiLink();
+
+btn.onclick = () => {
+  const url = "https://imaya.github.io/demo/sf2.js/soundfont/A320U.sf2";
+  wml.setLoadCallback(function(arraybuffer) {
+    // loaded
+  });
+  wml.setup(url);
+};
+</script>

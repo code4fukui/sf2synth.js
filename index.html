@@ -1,0 +1,35 @@
+<!DOCTYPE html><html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width"><link rel="icon" href="data:">
+
+<button id=btn>init</button>
+<button id=btnplay>play</button>
+<button id=btnstop>stop</button>
+<script type="module">
+import { Synthesizer } from "./src/sound_font_synth.js";
+
+btnplay.disabled = true;
+btnstop.disabled = true;
+
+btn.onclick = async () => {
+  const url = "https://imaya.github.io/demo/sf2.js/soundfont/A320U.sf2";
+  const input = new Uint8Array(await (await fetch(url)).arrayBuffer());
+  const synth = new Synthesizer(input);
+  synth.init();
+  synth.start();
+  btnplay.disabled = false;
+  btnstop.disabled = false;
+  btnplay.onclick = () => {
+    const channel = 0;
+    const key = 60;
+    synth.programChange(0, 30);
+    synth.noteOn(channel, key, 127);
+    btnstop.onclick = () => synth.noteOff(channel, key, 0);
+  };
+};
+</script>
+
+<style>
+td {
+  min-width: 3px;
+  background-color: gray;
+}
+</style>

@@ -9,9 +9,12 @@ import { SoundFont } from "./SoundFont.js";
 const wml = new SoundFont.WebMidiLink();
 
 btn.onclick = () => {
-  const url = "https://imaya.github.io/demo/sf2.js/soundfont/A320U.sf2";
+  //const url = "./soundfont/decent_sax_section.sf2"; // https://musical-artifacts.com/artifacts/2967 CC BY 3.0
+  //const url = "./soundfont/005.6mg_Aspirin_Stereo_V1.2_Bank.sf2"; // https://musical-artifacts.com/artifacts/1808 // no rhythm
+  const url = "./soundfont/A320U.sf2";
   wml.setLoadCallback(function(arraybuffer) {
     // loaded
+    console.log(wml.synth);
   });
   wml.setup(url);
 };
